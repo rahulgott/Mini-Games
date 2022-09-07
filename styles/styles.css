@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: VT323;
+    font-size: 2rem;
+}
+
+.master-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-container {
+    background-color: gray;
+    width: 300px;
+    height: 350px;
+}
