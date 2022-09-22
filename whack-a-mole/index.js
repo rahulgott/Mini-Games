@@ -1,5 +1,6 @@
 const holes = document.querySelectorAll('.hole');
 const startButton = document.querySelector('.start-button');
+const notice = document.querySelector('.reset-notice');
 const whatTime = document.querySelector('.what-time');
 const currentScore = document.querySelector('.score');
 const highScore = document.querySelector('.highscore');
@@ -15,6 +16,7 @@ let timeUp = false
 let score = 0
 let counter = 0
 let isAlreadyPeeking = false
+let isReset = true
 
 const arr = []
 const localHighScores = JSON.parse(localStorage.getItem('mole-highScores'))
@@ -44,7 +46,12 @@ function incrementTimer() {
     whatTime.innerHTML = timerInput.value
     countDown.innerHTML = timerValue
     highScore.textContent = localHighScores[timerValue/10 - 1].highScore
-    console.log(localHighScores[timerValue/10 - 1])
+    if(!isReset) {
+        notice.innerHTML = "Please RESET before proceeding"
+        setTimeout(() => {
+            notice.innerHTML = ""
+        }, 2000);
+    }
 }
 
 function decrementTimer() {
@@ -53,13 +60,18 @@ function decrementTimer() {
     whatTime.innerHTML = timerInput.value
     countDown.innerHTML = timerValue
     highScore.textContent = localHighScores[timerValue/10 - 1].highScore
-    console.log(localHighScores[timerValue/10 - 1])    
+    if(!isReset) {
+        notice.innerHTML = "Please RESET before proceeding"
+        setTimeout(() => {
+            notice.innerHTML = ""
+        }, 2000); 
+    }    
 }
 
 function startGame() {
     timerFixedValue = timerValue
     relevantScore = localHighScores[timerFixedValue/10 - 1]
-    counter++
+    ++counter
     if(counter%2 === 0) {
         location.reload()
     }
@@ -69,6 +81,7 @@ function startGame() {
         timeUp = false
         peek()
         startButton.innerHTML = "Reset"
+        isReset = false
         let myTimer = setInterval(() => {
             if(timeUp) {
                 clearInterval(myTimer)
@@ -106,17 +119,21 @@ function peek() {
 }
 
 function bonk(e) {
-    console.log(relevantScore)
+    console.log(e)
+    console.log("parent: ", this.parentNode)
     if(!e.isTrusted) return
     score++
+    this.parentNode.style.backgroundColor = 'lightgreen'
     this.parentNode.classList.remove('up');
+    setTimeout(() => {
+        this.parentNode.style.backgroundColor = ''
+    }, 100);
     currentScore.textContent = score;
     if(relevantScore.highScore !== null){
         if (score > relevantScore.highScore) {
             highScore.textContent = score
             relevantScore.highScore = score
             localHighScores.splice(timerFixedValue/10-1, 1, relevantScore)
-            // console.log(timerFixedValue)
             localStorage.setItem('mole-highScores', JSON.stringify(localHighScores))  
         }
     }
