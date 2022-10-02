@@ -95,6 +95,7 @@ function animatePress(currentColor) {
 
 function startOver() {
     level = 0;
+    score = 0;
     gamePattern = [];
     started = false;
 }
