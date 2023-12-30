@@ -19,7 +19,7 @@ let isAlreadyPeeking = false
 let isReset = true
 
 const arr = []
-const localHighScores = JSON.parse(localStorage.getItem('mole-highScores'))
+let localHighScores = JSON.parse(localStorage.getItem('mole-highScores'))
 let relevantScore
 
 for(let i=1 ; i<7; i++) {
@@ -32,7 +32,7 @@ for(let i=1 ; i<7; i++) {
 // console.log(arr)
 // console.log("log",localHighScores)
 (localHighScores === null) ? localStorage.setItem('mole-highScores', JSON.stringify(arr)) : null
-
+localHighScores = JSON.parse(localStorage.getItem('mole-highScores'))
 
 countDown.innerHTML = timerValue
 whatTime.innerHTML = timerInput.value
