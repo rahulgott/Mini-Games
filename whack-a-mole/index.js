@@ -19,7 +19,7 @@ let isAlreadyPeeking = false
 let isReset = true
 
 const arr = []
-const localHighScores = JSON.parse(localStorage.getItem('mole-highScores'))
+const localHighScores = JSON.parse(localStorage.getItem('mole-highScores')) || 0
 let relevantScore
 for(let i=1 ; i<7; i++) {
     const obj = {
