@@ -19,7 +19,7 @@ let isAlreadyPeeking = false
 let isReset = true
 
 const arr = []
-const localHighScores = JSON.parse(localStorage.getItem('mole-highScores')) || 0
+const localHighScores = JSON.parse(localStorage.getItem('mole-highScores'))
 let relevantScore
 
 for(let i=1 ; i<7; i++) {
@@ -70,6 +70,7 @@ function decrementTimer() {
 }
 
 function startGame() {
+    timerFixedValue = timerValue
     relevantScore = localHighScores[timerFixedValue/10 - 1]
     ++counter
     if(counter%2 === 0) {
