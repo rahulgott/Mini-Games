@@ -21,6 +21,7 @@ let isReset = true
 const arr = []
 const localHighScores = JSON.parse(localStorage.getItem('mole-highScores')) || 0
 let relevantScore
+
 for(let i=1 ; i<7; i++) {
     const obj = {
         timer: i*10,
@@ -69,7 +70,6 @@ function decrementTimer() {
 }
 
 function startGame() {
-    timerFixedValue = timerValue
     relevantScore = localHighScores[timerFixedValue/10 - 1]
     ++counter
     if(counter%2 === 0) {
@@ -119,8 +119,8 @@ function peek() {
 }
 
 function bonk(e) {
-    console.log(e)
-    console.log("parent: ", this.parentNode)
+    // console.log(e)
+    // console.log("parent: ", this.parentNode)
     if(!e.isTrusted) return
     score++
     this.parentNode.style.backgroundColor = 'lightgreen'
